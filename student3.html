@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiranmai's Chart</title>
+    <!-- Including Bootstrap CSS for styling the page -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Including D3.js library for data visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        /* CSS styling for the body */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+        /* Styling for the chart container */
+        .chart-container {
+            margin: 20px 0;
+            width: 960px;
+        }
+        /* Styling for the tooltip */
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            padding: 6px;
+            font: 12px sans-serif;
+            background: lightsteelblue;
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        /* Styling for the legend */
+        .legend {
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        .legend div {
+            margin-bottom: 5px;
+        }
+        .legend rect {
+            width: 20px;
+            height: 20px;
+            stroke: #000;
+            stroke-width: 1px;
+        }
+        /* Styling for the instructions */
+        .instructions {
+            margin: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        .instruction-title {
+            font-weight: bold;
+        }
+        .country-label {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        /* Styling for the back button */
+        .back-button {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .back-button:active {
+            background-color: #004085;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main title of the chart -->
+    <h1>Stacked Bar Chart</h1>
+    <!-- Short description of the chart -->
+    <p>The chart displays the share of different waste management methods:</p>
+    <!-- Legend to explain the colors used in the chart -->
+    <div class="legend">
+        <div><svg width="300" height="20">
+            <rect x="0" y="0" width="20" height="20" fill="#1f77b4"></rect>
+            <text x="30" y="15" font-size="14" fill="#000">Share of waste recycled</text>
+        </svg></div>
+        <div><svg width="300" height="20">
+            <rect x="0" y="0" width="20" height="20" fill="#ff7f0e"></rect>
+            <text x="30" y="15" font-size="14" fill="#000">Share of waste incinerated</text>
+        </svg></div>
+        <div><svg width="300" height="20">
+            <rect x="0" y="0" width="20" height="20" fill="#2ca02c"></rect>
+            <text x="30" y="15" font-size="14" fill="#000">Share of littered and mismanaged</text>
+        </svg></div>
+        <div><svg width="300" height="20">
+            <rect x="0" y="0" width="20" height="20" fill="#d62728"></rect>
+            <text x="30" y="15" font-size="14" fill="#000">Share of waste landfilled</text>
+        </svg></div>
+    </div>
+    <!-- Instructions for the user -->
+    <div class="instructions">
+        <div class="instruction-title">Instructions:</div>
+        <p>Click on any bar to see detailed data from 2000 to 2019 for that specific region.</p>
+    </div>
+    <!-- Container for the chart -->
+    <div id="chart" class="chart-container"></div>
+    <!-- Button to reset the view to the continent view -->
+    <button id="reset-button" class="back-button" style="display:none;">Back to Continent View</button>
+    <!-- Button to navigate back to the main page -->
+    <a href="index.html" class="btn btn-secondary back-button">Back to Main Page</a>
+    <script>
+        // Load the data from the CSV file
+        d3.csv("student3.csv").then(data => {
+            // Function to parse the data from the CSV file
+            const parseData = d => {
+                d.year = +d.year; // Convert year to number
+                d["Share of waste recycled"] = +d["Share of waste recycled"];
+                d["Share of waste incinerated"] = +d["Share of waste incinerated"];
+                d["Share of littered and mismanaged"] = +d["Share of littered and mismanaged"];
+                d["Share of waste landfilled"] = +d["Share of waste landfilled"];
+                return d;
+            };
+
+            // Parse each row of data
+            data.forEach(parseData);
+
+            // Set the dimensions and margins of the chart
+            const margin = {top: 20, right: 30, bottom: 40, left: 40},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+            // Define the color scale for the chart
+            const color = d3.scaleOrdinal()
+                .domain(["Share of waste recycled", "Share of waste incinerated", "Share of littered and mismanaged", "Share of waste landfilled"])
+                .range(["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"]);
+
+            // Define the x-scale for the subgroups (countries or years)
+            const xSubgroup = d3.scaleBand().padding(0.05);
+            // Define the y-scale
+            const y = d3.scaleLinear().range([height, 0]);
+
+            // Labels for the subgroups
+            const subgroupLabels = {
+                "Share of waste recycled": "Share of waste recycled",
+                "Share of waste incinerated": "Share of waste incinerated",
+                "Share of littered and mismanaged": "Share of littered and mismanaged",
+                "Share of waste landfilled": "Share of waste landfilled"
+            };
+
+            // Create the SVG element for the chart
+            const mainSvg = d3.select("#chart")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            // Create the tooltip element
+            const tooltip = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+
+            // Function to update the chart
+            function updateChart(data, isDetailed = false, country = '') {
+                mainSvg.selectAll("*").remove(); // Clear the existing chart
+
+                // Determine the groups (countries or years) to display
+                const groups = isDetailed ? Array.from(new Set(data.map(d => d.year))) : Array.from(new Set(data.map(d => d.entity)));
+                xSubgroup.domain(groups).range([0, width]).padding(0.2);
+                y.domain([0, d3.max(data, d => d3.sum(Object.keys(subgroupLabels), key => d[key]))]);
+
+                // Add the x-axis
+                mainSvg.append("g")
+                    .attr("transform", `translate(0,${height})`)
+                    .call(d3.axisBottom(xSubgroup).tickSize(0));
+
+                // Add the y-axis
+                mainSvg.append("g")
+                    .call(d3.axisLeft(y));
+
+                // Create the stacked data
+                const stack = d3.stack().keys(Object.keys(subgroupLabels));
+
+                // Add the bars to the chart
+                mainSvg.selectAll("g.layer")
+                    .data(stack(data))
+                    .enter().append("g")
+                    .attr("class", "layer")
+                    .attr("fill", d => color(d.key))
+                    .selectAll("rect")
+                    .data(d => d)
+                    .enter().append("rect")
+                    .attr("x", d => xSubgroup(isDetailed ? d.data.year : d.data.entity))
+                    .attr("y", d => y(d[1]))
+                    .attr("height", d => y(d[0]) - y(d[1]))
+                    .attr("width", xSubgroup.bandwidth())
+                    .on("mouseover", function(event, d) {
+                        tooltip.transition()
+                            .duration(200)
+                            .style("opacity", .9);
+                        tooltip.html(`Value: ${(d[1] - d[0]).toFixed(2)}%`)
+                            .style("left", (event.pageX + 5) + "px")
+                            .style("top", (event.pageY - 28) + "px");
+                    })
+                    .on("mouseout", function() {
+                        tooltip.transition()
+                            .duration(500)
+                            .style("opacity", 0);
+                    })
+                    .on("click", function(event, d) {
+                        if (!isDetailed) {
+                            const detailedData = data.filter(data => data.entity === d.data.entity);
+                            updateChart(detailedData, true, d.data.entity);
+                            document.getElementById("reset-button").style.display = 'block';
+                        }
+                    });
+
+                // If the chart is in detailed view, update the x-axis labels
+                if (isDetailed) {
+                    mainSvg.selectAll(".tick text")
+                        .text(d => d.toString());
+                }
+            }
+
+            // Event listener for the reset button
+            document.getElementById("reset-button").addEventListener("click", () => {
+                updateChart(data);
+                document.getElementById("reset-button").style.display = 'none';
+            });
+
+            // Initial chart update
+            updateChart(data);
+        });
+    </script>
+</body>
+</html>

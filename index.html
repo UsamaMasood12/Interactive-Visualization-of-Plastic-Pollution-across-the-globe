@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Visualization Project</title>
+    
+    <!-- Bootstrap CSS for styling -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Internal CSS for additional custom styling -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .card {
+            margin: 20px;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .course-title {
+            margin-bottom: 30px;
+        }
+        .back-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main container for content alignment and centering -->
+    <div class="container text-center">
+        <!-- Title of the project -->
+        <h1 class="course-title">Interactive Visualization</h1>
+        <!-- Brief description of the project -->
+        <p class="lead">This project involves creating four informative charts using D3.js on different datasets about plastic pollution across the world and in specific countries over different time spans.</p>
+        
+        <!-- Row to hold the student cards -->
+        <div class="row justify-content-center">
+            <!-- Card for Karan Gunti -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">A Line chart which shows the Plastic Waste produced by the whole world from 1950 to 2019 in tons.</p>
+                        <a href="student1.html" class="btn btn-primary">View Chart</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card for Usama Masood -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">A Choropleth Map which shows share of global plastic waste emitted to the ocean for the year 2019.</p>
+                        <a href="student2.html" class="btn btn-primary">View Chart</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card for Kiranmai Kodali -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">A Stacked Bar Chart which shows the annual shares of waste management methods from 2000 to 2019.</p>
+                        <a href="student3.html" class="btn btn-primary">View Chart</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card for Rishika Buram -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">A bubble chart which shows Mismanaged Plastic Waste per capita (kg per year) by countries.</p>
+                        <a href="student4.html" class="btn btn-primary">View Chart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

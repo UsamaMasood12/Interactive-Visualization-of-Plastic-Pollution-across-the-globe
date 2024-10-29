@@ -1,0 +1,160 @@
+entity,waste,continent
+Albania,24.23915307,Europe
+Algeria,17.75899473,Africa
+Angola,7.445278869,Africa
+Antigua and Barbuda,6.463917526,North America
+Argentina,10.40191152,South America
+Australia,0.20894338,Oceania
+Bahamas,5.686375321,North America
+Bahrain,0.635588056,Asia
+Bangladesh,6.268108387,Asia
+Barbados,3.038327526,North America
+Belgium,0.19793743,Europe
+Belize,15.43846154,North America
+Benin,11.29861876,Africa
+Bosnia and Herzegovina,16.82853681,Europe
+Brazil,15.62046908,South America
+Brunei,1.598152425,Asia
+Bulgaria,0.445285714,Europe
+Burkina Faso,15.61429064,Africa
+Cambodia,15.01152423,Asia
+Cameroon,22.36814036,Africa
+Canada,0.630483013,North America
+Cape Verde,6.487272727,Africa
+Chile,1.623417054,South America
+China,8.559308412,Asia
+Colombia,1.697570472,South America
+Comoros,69.51586369,Africa
+Congo,12.13361829,Africa
+Costa Rica,1.139263074,North America
+Cote d'Ivoire,11.33934751,Africa
+Croatia,4.247941889,Europe
+Cyprus,0.698081735,Asia
+Democratic Republic of Congo,15.78193592,Africa
+Denmark,0.067567568,Europe
+Djibouti,10.56365503,Africa
+Dominica,15.02777778,North America
+Dominican Republic,18.06667287,North America
+East Timor,13.33642691,Asia
+Ecuador,6.262058248,South America
+Egypt,14.29961748,Africa
+El Salvador,3.361171367,North America
+Equatorial Guinea,6.934365782,Africa
+Eritrea,24.0457535,Africa
+Estonia,0.452488688,Europe
+Fiji,4.334831461,Oceania
+Finland,0.473788865,Europe
+France,0.426531552,Europe
+French Guiana,0.432989691,South America
+Gabon,2.757017948,Africa
+Gambia,14.9467632,Africa
+Georgia,0.076807606,Asia
+Germany,0.606774669,Europe
+Ghana,17.09520679,Africa
+Greece,0.430249212,Europe
+Grenada,12.11607143,North America
+Guadeloupe,0.405,North America
+Guatemala,17.68972186,North America
+Guinea,11.58852087,Africa
+Guinea-Bissau,10.65330557,Africa
+Guyana,35.20434227,South America
+Haiti,21.12829619,North America
+Honduras,14.97999179,North America
+Hong Kong,0.777434104,Asia
+Iceland,0.445427729,Europe
+India,9.509608,Asia
+Indonesia,3.045657286,Asia
+Iran,5.981679813,Asia
+Iraq,12.51007377,Asia
+Ireland,0.547931176,Europe
+Israel,0.711351098,Asia
+Italy,0.640842279,Europe
+Jamaica,16.84972863,North America
+Japan,0.281286458,Asia
+Jordan,12.31686795,Asia
+Kazakhstan,2.92393941,Asia
+Kenya,5.514455815,Africa
+Kiribati,0.627118644,Oceania
+Kuwait,0.627525553,Asia
+Latvia,0.500786576,Europe
+Lebanon,6.800175029,Asia
+Lesotho,14.30164706,Africa
+Liberia,8.087907636,Africa
+Libya,27.81983178,Africa
+Lithuania,0.375724638,Europe
+Madagascar,0.936260151,Africa
+Malaysia,25.491518,Asia
+Maldives,0.11299435,Asia
+Malta,0.588636364,Europe
+Marshall Islands,0.271186441,Oceania
+Martinique,0.369680851,North America
+Mauritania,4.594785683,Africa
+Mauritius,0.235433071,Africa
+Mexico,3.375352731,North America
+Monaco,0.128205128,Europe
+Montenegro,0.025477707,Europe
+Morocco,8.101776705,Africa
+Mozambique,14.30652704,Africa
+Myanmar,8.038338422,Asia
+Namibia,8.373547094,Africa
+Netherlands,0.890975025,Europe
+New Zealand,0.358352498,Oceania
+Nicaragua,16.93583868,North America
+Nigeria,9.698005613,Africa
+North Korea,0.01254578,Asia
+Norway,0.277746793,Europe
+Oman,0.251457286,Asia
+Pakistan,6.21734837,Asia
+Palau,6.444444444,Oceania
+Palestine,0.427424212,Asia
+Panama,8.558407913,North America
+Papua New Guinea,13.62101185,Oceania
+Peru,4.315995078,South America
+Philippines,37.23096275,Asia
+Poland,0.372782939,Europe
+Portugal,0.373362018,Europe
+Puerto Rico,0.440845551,North America
+Qatar,0.540960452,Asia
+Reunion,0.262092238,Africa
+Romania,2.693570875,Europe
+Russia,2.491149775,Europe
+Saint Kitts and Nevis,1.830188679,North America
+Saint Lucia,23.36612022,North America
+Saint Vincent and the Grenadines,11.12612613,North America
+Samoa,8.822335025,Oceania
+Sao Tome and Principe,9.623255814,Africa
+Saudi Arabia,0.209402084,Asia
+Senegal,4.029209622,Africa
+Seychelles,0.336734694,Africa
+Sierra Leone,11.67784462,Africa
+Singapore,0.425223983,Asia
+Slovakia,0.315008246,Europe
+Slovenia,0.405964406,Europe
+Solomon Islands,5.253731343,Oceania
+Somalia,0.002719679,Africa
+South Africa,12.09855186,Africa
+South Korea,0.237306003,Asia
+Spain,0.435415196,Europe
+Sri Lanka,7.290658413,Asia
+Sudan,18.25672109,Africa
+Suriname,39.47160069,South America
+Sweden,0.423973695,Europe
+Syria,0.029408319,Asia
+Taiwan,0.315554808,Asia
+Tanzania,29.59055254,Africa
+Thailand,19.55720564,Asia
+Togo,15.06842366,Africa
+Tonga,6.403846154,Oceania
+Trinidad and Tobago,52.42939068,North America
+Tunisia,24.7574177,Africa
+Turkey,19.85029366,Asia
+Ukraine,8.950697822,Europe
+United Arab Emirates,0.525534746,Asia
+United Kingdom,0.442973493,Europe
+United States,0.812815117,North America
+Uruguay,26.75332178,South America
+Venezuela,23.54576378,South America
+Vietnam,11.53604528,Asia
+Western Sahara,7.068728522,Africa
+Yemen,10.00401207,Asia
+Zimbabwe,35.83919426,Africa

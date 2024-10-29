@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karan's Chart</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Basic styling for the page */
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        #chart {
+            position: relative;
+            margin: auto;
+            width: 100%;
+            height: 500px;
+        }
+        .tooltip {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0px 0px 5px 0px #ccc;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .back-button {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .back-button:active {
+            background-color: #004085;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Line Chart</h1>
+        <p>This chart represents the plastic pollution in million tons over the years 1950 to 2019.</p>
+        <div id="chart">
+            <div class="tooltip" id="tooltip"></div>
+        </div>
+        <a href="index.html" class="btn btn-secondary back-button">Back to Main Page</a>
+    </div>
+
+    <!-- Including the D3.js library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        // Set up margins and dimensions for the chart
+        const margin = {top: 50, right: 50, bottom: 50, left: 100},
+              width = 800 - margin.left - margin.right,
+              height = 500 - margin.top - margin.bottom;
+
+        // Create the SVG container and set the origin based on margins
+        const svg = d3.select("#chart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Define the scales for the x and y axes
+        const x = d3.scaleTime().range([0, width]);
+        const y = d3.scaleLinear().range([height, 0]);
+
+        // Append groups for the x and y axes
+        const xAxis = svg.append("g")
+            .attr("transform", `translate(0,${height})`);
+        const yAxis = svg.append("g");
+
+        // Define the line generator function
+        const line = d3.line()
+            .x(d => x(d.year))
+            .y(d => y(d.value))
+            .curve(d3.curveMonotoneX); // Smooth line
+
+        // Select the tooltip div
+        const tooltip = d3.select("#tooltip");
+
+        // Load the data from CSV file
+        d3.csv("student1.csv", d => {
+            // Parse the data
+            return {year: d3.timeParse("%Y")(d.year), value: +d.value};
+        }).then(data => {
+            // Set the domains of the scales based on the data
+            x.domain(d3.extent(data, d => d.year));
+            y.domain([0, d3.max(data, d => d.value)]);
+
+            // Draw the x-axis
+            xAxis.call(d3.axisBottom(x).tickFormat(d3.timeFormat("%Y")));
+            // Draw the y-axis
+            yAxis.call(d3.axisLeft(y).ticks(10).tickFormat(d => `${d / 1e6}M`));
+
+            // Append the path for the line
+            svg.append("path")
+                .datum(data)
+                .attr("fill", "none")
+                .attr("stroke", "steelblue")
+                .attr("stroke-width", 2)
+                .attr("d", line);
+
+            // Create a focus group for the tooltip interaction
+            const focus = svg.append("g")
+                .attr("class", "focus")
+                .style("display", "none");
+
+            // Append a circle to the focus group
+            focus.append("circle")
+                .attr("r", 5)
+                .attr("fill", "steelblue");
+
+            // Append a rect to capture mouse events for zoom and tooltips
+            svg.append("rect")
+                .attr("class", "overlay")
+                .attr("width", width)
+                .attr("height", height)
+                .attr("fill", "none")
+                .attr("pointer-events", "all")
+                .call(d3.zoom()
+                    .extent([[0, 0], [width, height]])
+                    .scaleExtent([1, 8])
+                    .translateExtent([[0, 0], [width, height]])
+                    .on("zoom", zoomed))
+                .on("mouseover", () => focus.style("display", null))
+                .on("mouseout", () => {
+                    focus.style("display", "none");
+                    tooltip.style("opacity", 0);
+                })
+                .on("mousemove", event => {
+                    // Handle mouse movement for tooltips
+                    const bisect = d3.bisector(d => d.year).left;
+                    const mouseX = d3.pointer(event)[0];
+                    const x0 = x.invert(mouseX);
+                    const i = bisect(data, x0, 1);
+                    const d0 = data[i - 1];
+                    const d1 = data[i];
+                    const d = x0 - d0.year > d1.year - x0 ? d1 : d0;
+
+                    // Move the focus circle to the correct position
+                    focus.attr("transform", `translate(${x(d.year)},${y(d.value)})`);
+
+                    // Show the tooltip with additional information for 2008
+                    tooltip.style("opacity", 1)
+                        .style("left", `${x(d.year) + margin.left + 15}px`)
+                        .style("top", `${y(d.value) + margin.top + 15}px`)
+                        .html(`Year: ${d3.timeFormat("%Y")(d.year)}<br>Value: ${d.value.toLocaleString()} tons${d3.timeFormat("%Y")(d.year) === "2008" ? "<br><strong>In 2008:</strong><br>The global production of plastic waste decreased primarily due to the economic slowdown caused by the Great Recession. Reduced consumer spending and industrial production led to lower demand and production of plastic materials." : ""}`);
+                });
+
+            // Add axis labels
+            svg.append("text")
+                .attr("x", width / 2)
+                .attr("y", height + margin.bottom)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "16px")
+                .text("Year");
+
+            svg.append("text")
+                .attr("x", -height / 2)
+                .attr("y", -margin.left + 60)
+                .attr("transform", "rotate(-90)")
+                .attr("text-anchor", "middle")
+                .attr("font-size", "16px")
+                .text("Plastic Pollution (million tons)");
+
+            // Draw grid lines for better readability
+            svg.append("g")
+                .attr("class", "grid")
+                .call(d3.axisLeft(y).tickSize(-width).tickFormat(""))
+                .attr("stroke-opacity", 0.1);
+
+            svg.append("g")
+                .attr("class", "grid")
+                .call(d3.axisBottom(x).tickSize(-height).tickFormat(""))
+                .attr("stroke-opacity", 0.1);
+
+            // Highlight the significant year 2008 with an annotation
+            const annotationYear = 2008;
+            const annotationData = data.find(d => d3.timeFormat("%Y")(d.year) == annotationYear);
+
+            if (annotationData) {
+                // Draw a line for the annotation
+                const annotationLine = svg.append("line")
+                    .attr("x1", x(annotationData.year))
+                    .attr("x2", x(annotationData.year))
+                    .attr("y1", y(0))
+                    .attr("y2", y(annotationData.value))
+                    .attr("stroke", "green")
+                    .attr("stroke-dasharray", "4");
+
+                // Add text to the annotation
+                const annotationText = svg.append("text")
+                    .attr("x", x(annotationData.year) - 150)
+                    .attr("y", y(annotationData.value) - 20)
+                    .attr("text-anchor", "start")
+                    .attr("font-size", "12px")
+                    .attr("font-weight", "bold")
+                    .attr("fill", "green")
+                    .text("Significant decrease in 2008");
+
+                // Function to handle zoom events
+                function zoomed(event) {
+                    // Rescale the x and y axes based on the zoom transformation
+                    const transform = event.transform;
+                    const newX = transform.rescaleX(x);
+                    const newY = transform.rescaleY(y);
+
+                    // Update the axes with new scales
+                    xAxis.call(d3.axisBottom(newX).tickFormat(d3.timeFormat("%Y")));
+                    yAxis.call(d3.axisLeft(newY).ticks(10).tickFormat(d => `${d / 1e6}M`));
+
+                    // Update the line path with new scales
+                    svg.selectAll("path")
+                        .attr("d", line.x(d => newX(d.year)).y(d => newY(d.value)));
+
+                    // Update the annotation line position
+                    annotationLine
+                        .attr("x1", newX(annotationData.year))
+                        .attr("x2", newX(annotationData.year))
+                        .attr("y1", newY(0))
+                        .attr("y2", newY(annotationData.value));
+
+                    // Update the annotation text position
+                    annotationText
+                        .attr("x", newX(annotationData.year) - 150)
+                        .attr("y", newY(annotationData.value) - 20);
+
+                    // Move the focus circle to the correct position
+                    focus.attr("transform", `translate(${newX(d3.pointer(event)[0])},${newY(d3.pointer(event)[1])})`);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

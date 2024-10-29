@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usama's Chart</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Basic styling for the page */
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .back-button {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .back-button:active {
+            background-color: #004085;
+        }
+        svg {
+            display: block;
+            margin: auto;
+        }
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            width: 150px;
+            padding: 2px;
+            font: 12px sans-serif;
+            background: lightsteelblue;
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Choropleth Map</h1>
+        <p>This map visualizes the share of global plastic waste emitted to the ocean (kg per capita) for the year 2019.</p>
+        
+        <!-- Buttons for filtering by continent -->
+        <div class="btn-group mb-3" role="group" aria-label="Continents">
+            <button type="button" class="btn btn-primary" onclick="filterContinent('Africa')">Africa</button>
+            <button type="button" class="btn btn-primary" onclick="filterContinent('Asia')">Asia</button>
+            <button type="button" class="btn btn-primary" onclick="filterContinent('Europe')">Europe</button>
+            <button type="button" class="btn btn-primary" onclick="filterContinent('North America')">North America</button>
+            <button type="button" class="btn btn-primary" onclick="filterContinent('Oceania')">Oceania</button>
+            <button type="button" class="btn btn-primary" onclick="filterContinent('South America')">South America</button>
+            <button type="button" class="btn btn-secondary" onclick="filterContinent('')">Show All</button>
+        </div>
+        
+        <!-- Dropdown menu for filtering by value category -->
+        <div class="mb-3">
+            <label for="valueCategory">Select Value Category:</label>
+            <select id="valueCategory" class="form-control" style="display: inline-block; width: auto;" onchange="filterValueCategory(this.value)">
+                <option value="">All</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+        </div>
+
+        <!-- SVG element for the map -->
+        <svg id="my_dataviz" width="1000" height="600"></svg>
+        <a href="index.html" class="btn btn-secondary back-button">Back to Main Page</a>
+    </div>
+
+    <!-- Importing necessary D3 libraries -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script>
+        // Set up dimensions for the SVG canvas
+        const svg = d3.select("#my_dataviz"),
+              width = +svg.attr("width"),
+              height = +svg.attr("height");
+
+        // Define the map projection and path generator
+        const projection = d3.geoMercator()
+            .scale(150) // Zoom level of the map
+            .center([0, 20]) // Center the map at these coordinates
+            .translate([width / 2, height / 2]); // Move the map to the center of the SVG
+        const path = d3.geoPath().projection(projection);
+
+        // Define a color scale for the map
+        const colorScale = d3.scaleThreshold()
+            .domain([0, 0.0001, 0.001, 0.01, 0.1, 0.5, 1, 5])
+            .range(d3.schemeBlues[8]); // Array of 8 colors for different ranges
+
+        // Tooltip setup for displaying data on hover
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip");
+
+        // Initialize variables to hold data
+        let dataMap, topoData;
+
+        // Load GeoJSON and CSV data
+        d3.json("./world.geojson").then(function(topo) {
+            topoData = topo; // Store the GeoJSON data
+            d3.csv("./student2.csv").then(function(data) {
+                // Map the CSV data to a format that's easier to work with
+                dataMap = new Map(data.map(d => [d.code, { share: +d.share, continent: d.continent }]));
+                // Initially display the map with no filters
+                updateMap('', '');
+            });
+        });
+
+        // Function to update the map based on continent and value category filters
+        function updateMap(continent, valueCategory) {
+            // Assign categories to each country based on share value
+            topoData.features.forEach(function(d) {
+                const data = dataMap.get(d.id);
+                d.total = data ? data.share : 0; // Assign share value or 0 if no data
+                d.continent = data ? data.continent : ''; // Assign continent or empty if no data
+                // Categorize countries based on share value
+                if (d.total >= 1) {
+                    d.category = "high";
+                } else if (d.total >= 0.1) {
+                    d.category = "medium";
+                } else {
+                    d.category = "low";
+                }
+            });
+
+            // Remove existing paths to redraw the map
+            svg.selectAll("path").remove();
+
+            // Filter data based on selected continent and value category
+            svg.append("g")
+                .selectAll("path")
+                .data(topoData.features.filter(d => (!continent || d.continent === continent) && (!valueCategory || d.category === valueCategory)))
+                .enter()
+                .append("path")
+                .attr("d", path) // Draw the path based on GeoJSON data
+                .attr("fill", function(d) {
+                    return colorScale(d.total); // Color based on share value
+                })
+                .style("stroke", "transparent")
+                .attr("class", "Country")
+                .style("opacity", .8)
+                // Mouseover event for displaying tooltip
+                .on("mouseover", function(event, d) {
+                    d3.selectAll(".Country")
+                        .transition()
+                        .duration(200)
+                        .style("opacity", .5); // Dim other countries
+                    d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .style("opacity", 1)
+                        .style("stroke", "black");
+
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    tooltip.html("Country: " + d.properties.name + "<br>Value: " + d.total + " kg per capita")
+                        .style("left", (event.pageX + 5) + "px")
+                        .style("top", (event.pageY - 28) + "px");
+                })
+                // Mouseleave event for hiding tooltip
+                .on("mouseleave", function(event, d) {
+                    d3.selectAll(".Country")
+                        .transition()
+                        .duration(200)
+                        .style("opacity", .8);
+                    d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .style("stroke", "transparent");
+
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", 0);
+                });
+        }
+
+        // Function to filter by continent
+        function filterContinent(continent) {
+            // Remove 'active' class from all buttons
+            document.querySelectorAll('.btn-group .btn').forEach(btn => btn.classList.remove('active'));
+            // Add 'active' class to the clicked button
+            document.querySelector('.btn-group .btn.btn-primary[onclick="filterContinent(\'' + continent + '\')"]').classList.add('active');
+            // Get the selected value category from the dropdown
+            const valueCategory = document.getElementById('valueCategory').value;
+            // Update the map with selected filters
+            updateMap(continent, valueCategory);
+        }
+
+        // Function to filter by value category
+        function filterValueCategory(valueCategory) {
+            // Get the currently active continent button
+            const activeButton = document.querySelector('.btn-group .active');
+            const continent = activeButton ? activeButton.textContent : '';
+            // Update the map with selected filters
+            updateMap(continent, valueCategory);
+        }
+    </script>
+</body>
+</html>

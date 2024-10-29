@@ -1,0 +1,224 @@
+name,code,share,continent
+Africa,FFF,7.98931654,Africa
+Albania,ALB,0.159782247,Europe
+Algeria,DZA,0.589509708,Africa
+Angola,AGO,0.087803663,Africa
+Antigua and Barbuda,ATG,0.000204195,North America
+Argentina,ARG,0.422376457,South America
+Asia,ABB,80.99356991,Asia
+Australia,AUS,0.003267113,Oceania
+Bahamas,BHS,0.002041946,North America
+Bahrain,BHR,0,Asia
+Bangladesh,BGD,2.515677038,Asia
+Barbados,BRB,0.004594378,North America
+Belgium,BEL,0.003471308,Europe
+Belize,BLZ,0.038184384,North America
+Benin,BEN,0.167337446,Africa
+Bosnia and Herzegovina,BIH,0.000612584,Europe
+Brazil,BRA,3.859175176,South America
+Brunei,BRN,0.013681036,Asia
+Bulgaria,BGR,0.000714681,Europe
+Burkina Faso,BFA,0,Africa
+Cambodia,KHM,0.113634275,Asia
+Cameroon,CMR,1.0894801,Africa
+Canada,CAN,0.024299153,North America
+Cape Verde,CPV,0,Africa
+Chile,CHL,0.032875325,South America
+China,CHN,7.218992545,Asia
+Colombia,COL,0.044003929,South America
+Comoros,COM,0,Africa
+Congo,COG,0.069017763,Africa
+Costa Rica,CRI,0.045943777,North America
+Cote d'Ivoire,CIV,0.488433399,Africa
+Croatia,HRV,0.022869791,Europe
+Cyprus,CYP,0.000306292,Asia
+Democratic Republic of Congo,COD,0.042880859,Africa
+Denmark,DNK,0.000918876,Europe
+Djibouti,DJI,0.000408389,Africa
+Dominica,DMA,0.005411156,North America
+Dominican Republic,DOM,0.640762544,North America
+EU-27,EEE,0.220223838,Europe
+East Timor,TLS,0.072999557,Asia
+Ecuador,ECU,0.115982513,South America
+Egypt,EGY,0.252282385,Africa
+El Salvador,SLV,0.082494604,North America
+Equatorial Guinea,GNQ,0.041349399,Africa
+Eritrea,ERI,0.00490067,Africa
+Estonia,EST,0.001225167,Europe
+Europe,EEE,0.595431351,Europe
+Fiji,FJI,0.037265508,Oceania
+Finland,FIN,0,Europe
+France,FRA,0.023992861,Europe
+French Guiana,GUF,0.000714681,South America
+Gabon,GAB,0.045433291,Africa
+Gambia,GMB,0.042982956,Africa
+Georgia,GEO,0.000306292,Asia
+Germany,DEU,0.013681036,Europe
+Ghana,GHA,0.427277127,Africa
+Greece,GRC,0.022053013,Europe
+Grenada,GRD,0.013272647,North America
+Guadeloupe,GLP,0.000408389,North America
+Guatemala,GTM,0.729178791,North America
+Guinea,GIN,0.239622322,Africa
+Guinea-Bissau,GNB,0.025218029,Africa
+Guyana,GUY,0.127213214,South America
+Haiti,HTI,0.70743207,North America
+Honduras,HND,0.24870898,North America
+Hong Kong,HKG,0.011434896,Asia
+Iceland,ISL,0,Europe
+India,IND,12.91663349,Asia
+Indonesia,IDN,5.751446208,Asia
+Iran,IRN,0.094746278,Asia
+Iraq,IRQ,0.006840518,Asia
+Ireland,IRL,0.011741187,Europe
+Israel,ISR,0.00336921,Asia
+Italy,ITA,0.042268275,Europe
+Jamaica,JAM,0.238295057,North America
+Japan,JPN,0.187348513,Asia
+Jordan,JOR,0.000102097,Asia
+Kazakhstan,KAZ,0.001327265,Asia
+Kenya,KEN,0.026443196,Africa
+Kiribati,KIR,0,Oceania
+Kuwait,KWT,0.000714681,Asia
+Latvia,LVA,0.000918876,Europe
+Lebanon,LBN,0.069834541,Asia
+Lesotho,LSO,0,Africa
+Liberia,LBR,0.269332631,Africa
+Libya,LBY,0.089743511,Africa
+Lithuania,LTU,0.000714681,Europe
+Macau,MFM,0.034815173,Asia
+Madagascar,MDG,0.079125394,Africa
+Malaysia,MYS,7.463107147,Asia
+Maldives,MDV,0,Asia
+Malta,MLT,0,Europe
+Marshall Islands,MHL,0,Oceania
+Martinique,MTQ,0.00224614,North America
+Mauritania,MRT,0.012966355,Africa
+Mauritius,MUS,0,Africa
+Mexico,MEX,0.358565656,North America
+Micronesia,FSM,0.003777599,Oceania
+Monaco,MCO,0,Europe
+Montenegro,MNE,0,Europe
+Morocco,MAR,0.183775108,Africa
+Mozambique,MOZ,0.259735486,Africa
+Myanmar,MMR,0.259735486,Asia
+Namibia,NAM,0.000204195,Africa
+Netherlands,NLD,0.027668364,Europe
+New Zealand,NZL,0.006942615,Oceania
+Nicaragua,NIC,0.149572519,North America
+Nigeria,NGA,1.903093343,Africa
+North America,NNN,4.499120942,North America
+North Korea,PRK,0.005104864,Asia
+Norway,NOR,0,Europe
+Oceania,UUU,0.370715232,Oceania
+Oman,OMN,0.000102097,Asia
+Pakistan,PAK,0.089130928,Asia
+Palau,PLW,0.000714681,Oceania
+Palestine,PSE,0.012047479,Asia
+Panama,PAN,0.534683468,North America
+Papua New Guinea,PNG,0.312315587,Oceania
+Peru,PER,0.026443196,South America
+Philippines,PHL,36.38451062,Asia
+Poland,POL,0.002960821,Europe
+Portugal,PRT,0.007759393,Europe
+Puerto Rico,PRI,0.007248907,North America
+Qatar,QAT,0,Asia
+Reunion,REU,0,Africa
+Romania,ROU,0.008167783,Europe
+Russia,RUS,0.055336727,Europe
+Saint Kitts and Nevis,KNA,0.000102097,North America
+Saint Lucia,LCA,0.04584168,North America
+Saint Martin,MAF,0,North America
+Saint Vincent and the Grenadines,VCT,0.00826988,North America
+Samoa,WSM,0,Oceania
+Sao Tome and Principe,STP,0.007861491,Africa
+Saudi Arabia,SAU,0.000306292,Asia
+Senegal,SEN,0.017254441,Africa
+Seychelles,SYC,0,Africa
+Sierra Leone,SLE,0.370000551,Africa
+Singapore,SGP,0.016743954,Asia
+Sint Maarten,SXM,0,North America
+Slovakia,SVK,0,Europe
+Slovenia,SVN,0.00112307,Europe
+Solomon Islands,SLB,0.010209728,Oceania
+Somalia,SOM,0.000204195,Africa
+South Africa,ZAF,0.435547007,Africa
+South America,SRR,5.513253248,South America
+South Korea,KOR,0.039511648,Asia
+Spain,ESP,0.023992861,Europe
+Sri Lanka,LKA,0.985647164,Asia
+Sudan,SDN,0.010822312,Africa
+Suriname,SUR,0.171217143,South America
+Sweden,SWE,0.003675502,Europe
+Syria,SYR,0.00449228,Asia
+Taiwan,TWN,0.054213657,Asia
+Tanzania,TZA,0.590632779,Africa
+Thailand,THA,2.328430622,Asia
+Togo,TGO,0.044514415,Africa
+Tonga,TON,0,Oceania
+Trinidad and Tobago,TTO,0.363160033,North America
+Tunisia,TUN,0.07024293,Africa
+Turkey,TUR,1.462951959,Asia
+Ukraine,UKR,0.087701566,Europe
+United Arab Emirates,ARE,0.001429362,Asia
+United Kingdom,GBR,0.07177439,Europe
+United States,USA,0.248198493,North America
+Uruguay,URY,0.101893088,South America
+Venezuela,VEN,0.611358527,South America
+Vietnam,VNM,2.881287406,Asia
+Western Sahara,ESH,0.003879697,Africa
+Yemen,YEM,0.025728515,Asia
+Zimbabwe,ZWE,0,Africa
+Afghanistan,AFG,0.321,Asia
+Armenia,ARM,0.045,Asia
+Azerbaijan,AZE,0.058,Asia
+Bolivia,BOL,0.143,South America
+Botswana,BWA,0.192,Africa
+Burundi,BDI,0.082,Africa
+Chad,TCD,0.132,Africa
+Cuba,CUB,0.379,North America
+Ethiopia,ETH,1.645,Africa
+Fiji,FJI,0.043,Oceania
+Gabon,GAB,0.098,Africa
+Guinea-Bissau,GNB,0.034,Africa
+Iraq,IRQ,0.512,Asia
+Jamaica,JAM,0.252,North America
+Jordan,JOR,0.083,Asia
+Kazakhstan,KAZ,0.271,Asia
+Kyrgyzstan,KGZ,0.014,Asia
+Laos,LAO,0.027,Asia
+Lebanon,LBN,0.146,Asia
+Lesotho,LSO,0.068,Africa
+Liberia,LBR,0.087,Africa
+Luxembourg,LUX,0.021,Europe
+Malawi,MWI,0.145,Africa
+Mali,MLI,0.153,Africa
+Mongolia,MNG,0.084,Asia
+Namibia,NAM,0.125,Africa
+Nepal,NPL,0.213,Asia
+Niger,NER,0.219,Africa
+Paraguay,PRY,0.073,South America
+Rwanda,RWA,0.201,Africa
+Senegal,SEN,0.237,Africa
+Serbia,SRB,0.045,Europe
+Sierra Leone,SLE,0.029,Africa
+South Sudan,SSD,0.061,Africa
+Swaziland,SWZ,0.035,Africa
+Tajikistan,TJK,0.067,Asia
+Turkmenistan,TKM,0.075,Asia
+Uzbekistan,UZB,0.124,Asia
+Vanuatu,VUT,0.003,Oceania
+Zambia,ZMB,0.152,Africa
+Andorra,AND,0.003,Europe
+Austria,AUT,0.045,Europe
+Belarus,BLR,0.024,Europe
+Czech Republic,CZE,0.031,Europe
+Hungary,HUN,0.027,Europe
+Liechtenstein,LIE,0.001,Europe
+Luxembourg,LUX,0.021,Europe
+Moldova,MDA,0.014,Europe
+North Macedonia,MKD,0.009,Europe
+San Marino,SMR,0.001,Europe
+Serbia,SRB,0.045,Europe
+Switzerland,CHE,0.052,Europe
+Vatican City,VAT,0.000,Europe
